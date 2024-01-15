@@ -33,10 +33,40 @@ const Menu = () => {
           <h3>Our Menu</h3>
         </div>
         <div className="menu-content">
-          <div className="menu-filter">
+          <div className="menu-filter d-flex">
             <div className="search-form">
-            <i class="fa-light fa-magnifying-glass"></i>
-              <input type="text" placeholder="Search" value={searchValue} onChange={(e)=>setSearchValue(e.target.value.trim())}/>
+              <i class="fa-light fa-magnifying-glass"></i>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value.trim())}
+              />
+            </div>
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onClick={() => setFilteredData(menu)}
+              >
+                Default
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                onClick={() =>
+                  setFilteredData(() =>
+                    menu.slice().sort((a, b) => a.title.localeCompare(b.title))
+                  )
+                }
+              >
+                A to Z
+              </button>
+              <button type="button" class="btn btn-secondary" onClick={()=>{
+                setFilteredData(()=>menu.slice().sort((a, b) => a.price - b.price))
+              }}>
+                By Price
+              </button>
             </div>
           </div>
           <div className="row">
@@ -67,8 +97,7 @@ const Menu = () => {
                         }}
                       >
                         Delete
-                      </div>
-                      {" "}
+                      </div>{" "}
                       <div
                         className="btn btn-outline-light"
                         onClick={() => {
