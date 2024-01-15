@@ -1,0 +1,23 @@
+const express = require("express");
+const cors = require("cors");
+const app = express();
+const PORT = 8000;
+const mongoose = require("mongoose");
+const PulseProdsRouter = require("./routes/PulseProd.routes");
+
+app.use(cors());
+app.use(express.json());
+
+mongoose
+  .connect(
+    "mongodb+srv://seyagubzade:seyagubzade123@cluster0.2wwolad.mongodb.net/"
+  )
+  .then(() => {
+    console.log("connected to db");
+  });
+
+app.use("/pulse", PulseProdsRouter);
+
+app.listen(PORT, () => {
+  console.log(`listening to port ${PORT}`);
+});
